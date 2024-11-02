@@ -1,3 +1,43 @@
+<?php
+require '../koneksi.php'; // Pastikan path untuk koneksi.php benar
+
+// Ambil data konten berdasarkan kondisi, misalnya id_konten atau urutan tertentu
+$sql = "SELECT * FROM konten ORDER BY id_konten DESC LIMIT 1"; // Menampilkan konten terbaru
+$result = mysqli_query($koneksi, $sql);
+$commentsQuery = mysqli_query($koneksi, "SELECT * FROM comment ORDER BY username DESC");
+
+// Periksa apakah ada data yang ditemukan
+if ($data = mysqli_fetch_assoc($result)) {
+    $judul = $data['judul'];
+    $deskripsi = $data['deskripsi'];
+    $videoUrl = $data['video_url'];
+} else {
+    // Set nilai default jika tidak ada konten yang ditemukan
+    $judul = "Tidak ada konten";
+    $deskripsi = "Deskripsi tidak tersedia";
+    $videoUrl = ""; // Set ke URL default atau kosong
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = mysqli_real_escape_string($koneksi, $_POST['username']);
+    $comment = mysqli_real_escape_string($koneksi, $_POST['comment']);
+
+    if ($username && $comment) {
+        $sqlInsert = "INSERT INTO comment (username, comment, created_at) VALUES ('$username', '$comment', NOW())";
+        
+        if (mysqli_query($koneksi, $sqlInsert)) {
+            echo "<p>Komentar berhasil disimpan.</p>";
+        } else {
+            echo "<p>Error: " . mysqli_error($koneksi) . "</p>";
+        }
+    } else {
+        echo "<p>Data username atau komentar kosong.</p>";
+    }
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +45,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>Modul</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -58,35 +98,42 @@
         <?php include "header.php" ?>
             <!-- Page content-->
             <div class="container-fluid">
-                <h1 class="mt-4">Modul 1: Lorem Ipsum</h1>
+                <h1 class="mt-4"><?php echo $judul; ?></h1>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    <?php echo $deskripsi; ?>
                 </p>
                 <div class="video-container">
+                    <?php if ($videoUrl): ?>
                     <video class="video" width="640" height="360" controls>
-                        <source src="video.mp4" type="video/mp4">
-                        <source src="video.ogg" type="video/ogg">
+                    <source src="<?php echo $videoUrl; ?>" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
+                    <?php else: ?>
+                        <p>Video tidak tersedia.</p>
+                    <?php endif; ?>
                 </div>
                 <!-- Area Komentar -->
                 <div class="comment-section">
                     <h2>Komentar</h2>
-                    <form id="commentForm">
+                    <form id="commentForm" method="POST" action="">
                         <div class="mb-3">
                             <label for="usernameInput" class="form-label">Username:</label>
-                            <input type="text" class="form-control" id="usernameInput" required />
+                            <input type="text" class="form-control" id="usernameInput" name="username" required />
                         </div>
                         <div class="mb-3">
                             <label for="commentInput" class="form-label">Tulis Komentar Anda:</label>
-                            <textarea class="form-control" id="commentInput" rows="3" required></textarea>
+                            <textarea class="form-control" id="commentInput" name="comment" rows="3" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Kirim</button>
                     </form>
-                    <div id="commentsList"></div>
+                    <div id="commentsList">
+                        <?php while ($row = mysqli_fetch_assoc($commentsQuery)) : ?>
+                            <div class="comment">
+                                <p><strong><?= htmlspecialchars($row['username']) ?>:</strong> <?= htmlspecialchars($row['comment']) ?></p>
+                                <small><?= $row['created_at'] ?></small>
+                            </div>
+                        <?php endwhile; ?>
+                    </div>
                 </div>
             </div>
         </div>
