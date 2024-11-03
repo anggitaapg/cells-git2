@@ -18,6 +18,38 @@ $latest_news = array_slice($news_data, 1, 4); // 4 berita berikutnya untuk Lates
 $other_news = array_slice($news_data, 5); // Sisanya untuk Others
 ?>
 
+<style media="screen">
+  /* css untuk partnet */
+  .institution-link {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+.institution-link:hover {
+    color: #0d6efd; /* Warna biru Bootstrap, sesuaikan dengan tema Anda */
+    text-decoration: underline;
+}
+
+.partner-logo {
+    margin-bottom: 15px;
+}
+
+.partner-logo img {
+    transition: transform 0.3s ease;
+}
+
+.testimonial-item {
+    padding: 15px;
+    transition: all 0.3s ease;
+}
+
+.testimonial-item:hover {
+    background-color: rgba(0,0,0,0.02);
+    border-radius: 8px;
+}
+</style>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -277,48 +309,61 @@ $other_news = array_slice($news_data, 5); // Sisanya untuk Others
         </div>
     </div>
     <!-- About End -->
-    
+
     <!-- Partner and Network Start -->
-    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
-    <div class="container">
-        <div class="text-center">
-            <h6 class="section-title bg-white text-center text-primary px-3">Partner and Network</h6>
-            <h1 class="mb-5">Our Partner and Network</h1>
-        </div>
+<div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+  <div class="container">
+      <div class="text-center">
+          <h6 class="section-title bg-white text-center text-primary px-3">Partner and Network</h6>
+          <h1 class="mb-5">Our Partner and Network</h1>
+      </div>
 
-        <div class="owl-carousel testimonial-carousel position-relative">
-            <?php
-            // Koneksi ke database
-            require 'koneksi.php';
+      <div class="owl-carousel testimonial-carousel position-relative">
+          <?php
+          require 'koneksi.php';
 
-            // Query untuk mengambil data dari tabel partnet
-            $result = mysqli_query($koneksi, "SELECT logo, nama_partnet, nama_partnet2, instansi FROM partnet");
+          $result = mysqli_query($koneksi, "SELECT logo, nama_partnet, nama_partnet2, instansi, link FROM partnet");
 
-            // Cek apakah ada data
-            if (mysqli_num_rows($result) > 0) {
-                // Loop melalui setiap baris data
-                while ($row = mysqli_fetch_assoc($result)) {
-                    $logo = $row['logo'];
-                    $nama_partnet = $row['nama_partnet'];
-                    $nama_partnet2 = $row['nama_partnet2'];
-                    $instansi = $row['instansi'];
-            ?>
-                    <div class="testimonial-item text-center">
-                        <img src="./CELLS_Admin/admin/partnet/partnet/<?=$logo?>" alt="<?=$nama_partnet?> Logo" width="100" height="100">
-                        <h5 class="mb-0"><?=$nama_partnet?></h5>
-                        <h5 class="mb-0"><?=$nama_partnet2?></h5>
-                        <p><?=$instansi?></p>
-                    </div>
-            <?php
-                }
-            } else {
-                echo "<p>Tidak ada data partner dan network yang ditemukan.</p>";
-            }
-            ?>
-        </div>
-    </div>
+          if (mysqli_num_rows($result) > 0) {
+              while ($row = mysqli_fetch_assoc($result)) {
+                  $logo = htmlspecialchars($row['logo']);
+                  $nama_partnet = htmlspecialchars($row['nama_partnet']);
+                  $nama_partnet2 = htmlspecialchars($row['nama_partnet2']);
+                  $instansi = htmlspecialchars($row['instansi']);
+                  $link = htmlspecialchars($row['link']);
+
+                  // Cek apakah link ada dan valid
+                  $is_link_available = !empty($link) && $link !== '#';
+                  if ($is_link_available && !preg_match("~^(?:f|ht)tps?://~i", $link)) {
+                      $link = "http://" . $link;
+                  }
+          ?>
+                  <div class="testimonial-item text-center">
+                      <div class="partner-logo">
+                          <img class="img-fluid mx-auto" src="CELLS_Admin/admin/partnet/partnet/<?php echo $logo; ?>"
+                               alt="<?php echo $nama_partnet; ?> Logo" style="width: 200px; height: 200px; object-fit: contain;">
+                      </div>
+                      <h5 class="mb-0"><?php echo $nama_partnet; ?></h5>
+                      <?php if (!empty($nama_partnet2)): ?>
+                          <h5 class="mb-0"><?php echo $nama_partnet2; ?></h5>
+                      <?php endif; ?>
+                      <?php if ($is_link_available): ?>
+                          <a href="<?php echo $link; ?>" target="_blank" rel="noopener noreferrer" class="institution-link">
+                              <p class="mb-0"><?php echo $instansi; ?></p>
+                          </a>
+                      <?php else: ?>
+                          <p class="mb-0"><?php echo $instansi; ?></p>
+                      <?php endif; ?>
+                  </div>
+          <?php
+              }
+          } else {
+              echo "<p>Tidak ada data partner dan network yang ditemukan.</p>";
+          }
+          ?>
+      </div>
+  </div>
 </div>
-
 
     <!-- Partner and Network End -->
 

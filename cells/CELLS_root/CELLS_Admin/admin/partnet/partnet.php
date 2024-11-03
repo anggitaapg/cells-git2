@@ -6,13 +6,14 @@ if (isset($_POST['tambahpartnet'])) {
     $nama_partnet = $_POST['nama_partnet'];
     $nama_partnet2 = $_POST['nama_partnet2'];
     $instansi = $_POST['instansi'];
+    $link = $_POST['link'];
 
     if (isset($_FILES['logo']) && !empty($_FILES['logo']['name'])) {
         $logo = $_FILES['logo']['name'];
         $target_logo = "partnet/partnet/" . basename($logo);
 
         if (move_uploaded_file($_FILES['logo']['tmp_name'], $target_logo)) {
-            $addtotable = mysqli_query($conn, "INSERT INTO partnet(nama_partnet, nama_partnet2, instansi, logo) VALUES('$nama_partnet', '$nama_partnet2', '$instansi', '$logo')");
+            $addtotable = mysqli_query($conn, "INSERT INTO partnet(nama_partnet, nama_partnet2, instansi, logo, link) VALUES('$nama_partnet', '$nama_partnet2', '$instansi', '$logo', '$link')");
 
             if ($addtotable) {
                 echo "<script>
@@ -30,14 +31,15 @@ if (isset($_POST['editpartnet'])) {
     $nama_partnet = $_POST['nama_partnet'];
     $nama_partnet2 = $_POST['nama_partnet2'];
     $instansi = $_POST['instansi'];
+    $link = $_POST['link'];
 
     if (!empty($_FILES['logo']['name'])) {
         $logo = $_FILES['logo']['name'];
         $target_logo = "partnet/partnet/" . basename($logo);
         move_uploaded_file($_FILES['logo']['tmp_name'], $target_logo);
-        $query = "UPDATE partnet SET nama_partnet='$nama_partnet', nama_partnet2='$nama_partnet2', instansi='$instansi', logo='$logo' WHERE id_partnet='$id_partnet'";
+        $query = "UPDATE partnet SET nama_partnet='$nama_partnet', nama_partnet2='$nama_partnet2', instansi='$instansi', logo='$logo', link='$link' WHERE id_partnet='$id_partnet'";
     } else {
-        $query = "UPDATE partnet SET nama_partnet='$nama_partnet', nama_partnet2='$nama_partnet2', instansi='$instansi' WHERE id_partnet='$id_partnet'";
+        $query = "UPDATE partnet SET nama_partnet='$nama_partnet', nama_partnet2='$nama_partnet2', instansi='$instansi', link='$link' WHERE id_partnet='$id_partnet'";
     }
 
     $result = mysqli_query($conn, $query);
@@ -110,6 +112,7 @@ if (isset($_POST['hapus'])) {
                                             <th>Nama 2</th>
                                             <th>Instansi</th>
                                             <th>Logo</th>
+                                            <th>Link Website</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -124,6 +127,7 @@ if (isset($_POST['hapus'])) {
                                                 $nama_partnet2 = $data['nama_partnet2'];
                                                 $instansi = $data['instansi'];
                                                 $logo = $data['logo'];
+                                                $link = $data['link'];
                                         ?>
                                         <tr>
                                             <td><?= $i++ ?></td>
@@ -131,6 +135,7 @@ if (isset($_POST['hapus'])) {
                                             <td><?= $nama_partnet2 ?></td>
                                             <td><?= $instansi ?></td>
                                             <td><img src="partnet/partnet/<?= $logo ?>" width="100" alt="Foto"></td>
+                                            <td><?= $link ?></td>
                                             <td>
                                                 <a href="#modalEditpartnet<?= $id_partnet ?>" data-toggle="modal" title="Edit" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
                                                 <a href="#modalHapuspartnet<?= $id_partnet ?>" data-toggle="modal" title="Hapus" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
@@ -166,6 +171,10 @@ if (isset($_POST['hapus'])) {
 																			                    <div class="form-group">
 																			                        <label>Logo</label>
 																			                        <input type="file" name="logo" class="form-control">
+																			                    </div>
+                                                          <div class="form-group">
+																			                        <label>Link Website</label>
+																			                        <input type="text" name="link" value="<?=$link?>" class="form-control">
 																			                    </div>
 																			                </div>
                                                         <div class="modal-footer no-bd">
@@ -219,11 +228,15 @@ if (isset($_POST['hapus'])) {
                     </div>
                     <div class="form-group">
                         <label>Instansi</label>
-                        <input type="text" name="instansi" class="form-control">
+                        <input type="text" name="instansi" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Logo</label>
                         <input type="file" name="logo" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Link Website</label>
+                        <input type="text" name="link" class="form-control">
                     </div>
                 </div>
                 <div class="modal-footer no-bd">

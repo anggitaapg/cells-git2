@@ -5,6 +5,20 @@ require 'koneksi.php';
 $sql = "SELECT * FROM partnet ORDER BY logo DESC";
  ?>
 
+ <style media="screen">
+ .partner-logo {
+  margin-bottom: 15px;
+}
+
+.partner-logo img {
+  transition: transform 0.3s ease;
+}
+
+.partner-logo img:hover {
+  transform: scale(1.1);
+}
+ </style>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,26 +79,41 @@ $sql = "SELECT * FROM partnet ORDER BY logo DESC";
 
         <div class="owl-carousel testimonial-carousel position-relative">
             <?php
-            // Koneksi ke database
             require 'koneksi.php';
 
-            // Query untuk mengambil data dari tabel partnet
-            $result = mysqli_query($koneksi, "SELECT logo, nama_partnet, nama_partnet2, instansi FROM partnet");
+            $result = mysqli_query($koneksi, "SELECT logo, nama_partnet, nama_partnet2, instansi, link FROM partnet");
 
-            // Cek apakah ada data
             if (mysqli_num_rows($result) > 0) {
-                // Loop melalui setiap baris data
                 while ($row = mysqli_fetch_assoc($result)) {
-                    $logo = $row['logo'];
-                    $nama_partnet = $row['nama_partnet'];
-                    $nama_partnet2 = $row['nama_partnet2'];
-                    $instansi = $row['instansi'];
+                    $logo = htmlspecialchars($row['logo']);
+                    $nama_partnet = htmlspecialchars($row['nama_partnet']);
+                    $nama_partnet2 = htmlspecialchars($row['nama_partnet2']);
+                    $instansi = htmlspecialchars($row['instansi']);
+                    $link = htmlspecialchars($row['link']);
+
+                    // Validate and format link
+                    $link = !empty($link) ? $link : '#';
+                    if (!preg_match("~^(?:f|ht)tps?://~i", $link)) {
+                        $link = "http://" . $link;
+                    }
             ?>
                     <div class="testimonial-item text-center">
-                        <img src="CELLS_Admin/img/logo/<?=$logo?>" alt="<?=$nama_partnet?> Logo" width="100" height="100">
-                        <h5 class="mb-0"><?=$nama_partnet?></h5>
-                        <h5 class="mb-0"><?=$nama_partnet2?></h5>
-                        <p><?=$instansi?></p>
+                        <div class="partner-logo">
+                            <?php if ($link && $link != '#'): ?>
+                                <a href="<?php echo $link; ?>" target="_blank" rel="noopener noreferrer">
+                                    <img class="img-fluid mx-auto" src="CELLS_Admin/img/logo/<?php echo $logo; ?>"
+                                         alt="<?php echo $nama_partnet; ?> Logo" style="width: 100px; height: 100px; object-fit: contain;">
+                                </a>
+                            <?php else: ?>
+                                <img class="img-fluid mx-auto" src="CELLS_Admin/img/logo/<?php echo $logo; ?>"
+                                     alt="<?php echo $nama_partnet; ?> Logo" style="width: 100px; height: 100px; object-fit: contain;">
+                            <?php endif; ?>
+                        </div>
+                        <h5 class="mb-0"><?php echo $nama_partnet; ?></h5>
+                        <?php if (!empty($nama_partnet2)): ?>
+                            <h5 class="mb-0"><?php echo $nama_partnet2; ?></h5>
+                        <?php endif; ?>
+                        <p><?php echo $instansi; ?></p>
                     </div>
             <?php
                 }
@@ -95,7 +124,6 @@ $sql = "SELECT * FROM partnet ORDER BY logo DESC";
         </div>
     </div>
 </div>
-
     <!-- Partner and Network End -->
 
 
