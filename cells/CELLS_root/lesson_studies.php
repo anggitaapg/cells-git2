@@ -44,7 +44,7 @@
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
 		
-		<a href="index.html"><img src="img/Logo_CELLS_UPI.png" alt="CELLS UPI Logo" width="200" height="106" class="img-fluid d-flex align-items-center px-lg-5"/></a>
+		<a href="index.php"><img src="img/Logo_CELLS_UPI.png" alt="CELLS UPI Logo" width="200" height="106" class="img-fluid d-flex align-items-center px-lg-5"/></a>
 		
 <!--
         <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5 container-fluid">
@@ -61,9 +61,9 @@
                 <a href="index.php" class="nav-item nav-link">Home</a>
                 <a href="about_us.php" class="nav-item nav-link">About Us</a>
                 <a href="projects.php" class="nav-item nav-link">Projects</a>
-				<a href="publication.html" class="nav-item nav-link">Publication</a>
+				<a href="publication.php" class="nav-item nav-link">Publication</a>
 				<a href="lesson_studies.php" class="nav-item nav-link">Open Lesson Studies</a>
-				<a href="vacancies.html" class="nav-item nav-link">Vacancies</a>
+				<a href="vacancies.php" class="nav-item nav-link">Vacancies</a>
 <!--	
 				DROPDOWN MENU TEMPLATE
                 <div class="nav-item dropdown">
@@ -117,9 +117,9 @@
                     <h4 class="text-white mb-3">Quick Link</h4>
                     <a class="btn btn-link" href="about_us.php">About Us</a>
                     <a class="btn btn-link" href="projects.php">Projects</a>
-                    <a class="btn btn-link" href="publication.html">Publication</a>
-                    <a class="btn btn-link" href="partner_and_network.html">Open Lesson Studies</a>
-                    <a class="btn btn-link" href="vacancies.html">Vacancies</a>
+                    <a class="btn btn-link" href="publication.php">Publication</a>
+                    <a class="btn btn-link" href="partner_and_network.php">Open Lesson Studies</a>
+                    <a class="btn btn-link" href="vacancies.php">Vacancies</a>
                 </div>
 				
                 <div class="col-lg-3 col-md-6">
