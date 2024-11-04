@@ -1,3 +1,9 @@
+<?php
+require 'koneksi.php';
+// echo "./CELLS_Admin/img/".$Foto;
+
+$sql = "SELECT * FROM projek ORDER BY sampul DESC";
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,43 +32,76 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    <head>
+    <style>
+    .fixed-size {
+      width: 100%; /* Lebar mengikuti card */
+      height: 200px; /* Tinggi tetap */
+      object-fit: cover; /* Gambar tetap pada proporsi dan menutupi area dengan crop */
+      }
+        
+    </style>
+</head>
+
 </head>
 
 <body>
     <?php include "header.php" ?>
 
-
     <!-- Header Start -->
-    <div class="container-fluid bg-primary py-5 page-header">
-        <div class="container py-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-10 text-center">
-                    <h1 class="display-3 text-white animated slideInDown">Open Lesson Studies</h1>
-                </div>
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Projects</h1>
             </div>
         </div>
     </div>
-    
-    <!-- Header End -->
+</div>
+<!-- Header End -->
 
-    <!-- 404 Start -->
-    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container text-center">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <i class="bi bi-exclamation-triangle display-1 text-primary"></i>
-					<!--<h1 class="display-1">Oops, We're Sorry</h1>-->
-                    <h1 class="mb-4">This Page is Still Under Construction</h1>
-                    <p class="mb-4">We’re sorry, the page you are looking for is still under construction! Maybe you can go to our home page for now.</p>
-                    <a class="btn btn-primary rounded-pill py-3 px-5" href="index.php">Go Back To Home</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 404 End -->
+<div class="container">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+      <?php
+      // Mengambil data "Board of projek"
+      $sql = "SELECT * FROM projek ORDER BY id_projek ASC";
+      $result = mysqli_query($koneksi, $sql);
+
+      if (mysqli_num_rows($result) > 0) {
+          while($data = mysqli_fetch_array($result)) {
+              $nama_projek = $data['nama_projek'];
+              $caption = $data['caption'];
+              $sampul = $data['sampul'];
+
+              // Memotong caption jika lebih dari 130 karakter
+              if (strlen($caption) > 130) {
+                  $caption = substr($caption, 0, 125) . '...';
+              }
+      ?>
+      <div class="col-md-4 d-flex">
+          <div class="card cardpro h-100 flex-fill">
+              <img src="CELLS_Admin/img/projek<?=$sampul?>" class="img-fluid img-team fixed-size" alt="Foto <?=$nama_projek?>">
+              <div class="card-body">
+                  <h5 class="card-title"><?=$nama_projek?></h5>
+                  <p class="card-text"><?=$caption?></p>
+              </div>
+          </div>
+      </div>
+      <?php
+          }
+      } else {
+          echo "<p>Tidak ada data projek</p>";
+      }
+      ?>
+  </div>
+</div>
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
@@ -73,17 +112,17 @@
                     <a class="btn btn-link" href="about_us.php">About Us</a>
                     <a class="btn btn-link" href="projects.php">Projects</a>
                     <a class="btn btn-link" href="publication.php">Publication</a>
-                    <a class="btn btn-link" href="partner_and_network.php">Open Lesson Studies</a>
+                    <a class="btn btn-link" href="partner_and_network.php">Partner and Network</a>
                     <a class="btn btn-link" href="vacancies.php">Vacancies</a>
                 </div>
-				
+
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-white mb-3"><a href="contact.html" class="contact-href">Contact</a></h4>
                     <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Jl. Dr. Setiabudhi No. 229, Bandung, West Java, Indonesia</p>
 <!--
-					
+
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><a href="tel:+4733378901">+012 345 67890</p>
-						
+
 -->
                     <p class="mb-2"><i class="fa fa-envelope me-3"></i><a href="mailto:admin_cells@upi.edu" target="_blank" class="custom-email">admin_cells@upi.edu</a></p>
                     <div class="d-flex pt-2">
@@ -94,7 +133,7 @@
                         <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
-				
+
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-white mb-3">Gallery</h4>
                     <div class="row g-2 pt-2">
@@ -118,7 +157,7 @@
                         </div>
                     </div>
                 </div>
-				
+
 
 <!--
                 <div class="col-lg-3 col-md-6">
@@ -147,10 +186,10 @@ hs.src = ('//s10.histats.com/js15_as.js');
 <noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?4891304&101" alt="" border="0"></a></noscript>
 <!-- Histats.com  END  -->
 				</div>
-				
+
             </div>
         </div>
-		
+
         <div class="container">
             <div class="copyright">
                 <div class="row">
@@ -160,7 +199,7 @@ hs.src = ('//s10.histats.com/js15_as.js');
                         <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
                         Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
                     </div>
-	
+
 <!--
                     <div class="col-md-6 text-center text-md-end">
                         <div class="footer-menu">
@@ -171,7 +210,7 @@ hs.src = ('//s10.histats.com/js15_as.js');
                         </div>
                     </div>
 -->
-					
+
                 </div>
             </div>
         </div>
