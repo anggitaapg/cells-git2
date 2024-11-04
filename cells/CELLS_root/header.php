@@ -22,7 +22,7 @@
     <a href="vacancies.php" class="nav-item nav-link">Vacancies</a>
     <!-- <a href="lesson_studies.php" class="nav-item nav-link">Lesson And Studies</a> -->
     <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Membership Area</a>
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Membership Area</a>
                     <div class="dropdown-menu fade-down m-0">
                         <a href="https://lms-cells.upi.edu/" class="dropdown-item">LMS</a>
                         <a href="lesson_studies.php" class="dropdown-item">Video Content</a>
