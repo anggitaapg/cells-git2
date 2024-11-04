@@ -46,7 +46,6 @@ $sql = "SELECT * FROM projek ORDER BY sampul DESC";
       height: 200px; /* Tinggi tetap */
       object-fit: cover; /* Gambar tetap pada proporsi dan menutupi area dengan crop */
       }
-        }
     </style>
 </head>
 
