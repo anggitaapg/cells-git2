@@ -36,19 +36,11 @@
 
 
     <!-- Header Start -->
-    <div class="container-fluid bg-primary py-5 page-header" style="width: 100vw; height: 100vh;">
+    <div class="container-fluid bg-primary py-5 page-header">
         <div class="container py-5">
             <div class="row justify-content-center">
                 <div class="col-lg-10 text-center">
                     <h1 class="display-3 text-white animated slideInDown">Open Lesson Studies</h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb justify-content-center">
-                            <li class="breadcrumb-item"><a class="text-white" href="index.php">Home</a></li>
-                            <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                            <!-- <li class="breadcrumb-item"><a class="text-white" href="../CELLS_root/membership/login.php">Membership</a></li></li> -->
-                            <li class="breadcrumb-item"><a class="text-white" href="index.php   ">Membership</a></li></li>
-                        </ol>
-                    </nav>
                 </div>
             </div>
         </div>
