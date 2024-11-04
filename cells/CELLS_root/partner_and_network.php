@@ -133,11 +133,11 @@ $sql = "SELECT * FROM partnet ORDER BY logo DESC";
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-white mb-3">Quick Link</h4>
-                    <a class="btn btn-link" href="about_us.html">About Us</a>
-                    <a class="btn btn-link" href="projects.html">Projects</a>
-                    <a class="btn btn-link" href="publication.html">Publication</a>
-                    <a class="btn btn-link" href="partner_and_network.html">Partner and Network</a>
-                    <a class="btn btn-link" href="vacancies.html">Vacancies</a>
+                    <a class="btn btn-link" href="about_us.php">About Us</a>
+                    <a class="btn btn-link" href="projects.php">Projects</a>
+                    <a class="btn btn-link" href="publication.php">Publication</a>
+                    <a class="btn btn-link" href="partner_and_network.php">Partner and Network</a>
+                    <a class="btn btn-link" href="vacancies.php">Vacancies</a>
                 </div>
 
                 <div class="col-lg-3 col-md-6">

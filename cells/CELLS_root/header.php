@@ -8,7 +8,7 @@
 
 <!-- Navbar Start -->
 <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-  <a href="index.html"><img src="img/Logo_CELLS_UPI.png" alt="CELLS UPI Logo" width="200" height="106" class="img-fluid d-flex align-items-center px-lg-5"/></a>
+  <a href="index.php"><img src="img/Logo_CELLS_UPI.png" alt="CELLS UPI Logo" width="200" height="106" class="img-fluid d-flex align-items-center px-lg-5"/></a>
     <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
       <span class="navbar-toggler-icon"></span>
     </button>
