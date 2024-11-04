@@ -19,8 +19,16 @@
     <a href="about_us.php" class="nav-item nav-link">About Us</a>
     <a href="projects.php" class="nav-item nav-link">Projects</a>
     <a href="publication.php" class="nav-item nav-link">Publication</a>
-    <a href="lesson_studies.php" class="nav-item nav-link">Lesson And Studies</a>
     <a href="vacancies.php" class="nav-item nav-link">Vacancies</a>
+    <!-- <a href="lesson_studies.php" class="nav-item nav-link">Lesson And Studies</a> -->
+    <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Membership Area</a>
+                    <div class="dropdown-menu fade-down m-0">
+                        <a href="https://lms-cells.upi.edu/" class="dropdown-item">LMS</a>
+                        <a href="lesson_studies.php" class="dropdown-item">Video Content</a>
+                        <!-- <a href="404.html" class="dropdown-item">404 Page</a> -->
+                    </div>
+                </div> 
   </div>
 </div>
 </nav>
