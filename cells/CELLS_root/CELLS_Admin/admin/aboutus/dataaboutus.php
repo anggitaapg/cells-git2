@@ -77,6 +77,10 @@ if (isset($_POST['hapus'])) {
       width: 100px !important;
       min-width: 100px !important;
     }
+    th:first-child {
+       width: 35px !important;
+       min-width: 35px !important;
+     }
     th:last-child, td:last-child {
     width: 120px !important;
     min-width: 120px !important;
@@ -126,7 +130,7 @@ if (isset($_POST['hapus'])) {
                                 <table id="add-row" class="display table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Nomor</th>
+                                            <th>No</th>
                                             <th>Nama Lengkap</th>
                                             <th>Jabatan</th>
                                             <th>Kategori</th>

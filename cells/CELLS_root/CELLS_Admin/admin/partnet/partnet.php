@@ -82,6 +82,10 @@ if (isset($_POST['hapus'])) {
     width: 100px !important;
     min-width: 100px !important;
   }
+  th:first-child {
+     width: 35px !important;
+     min-width: 35px !important;
+   }
   th:last-child, td:last-child {
       width: 120px !important;
       min-width: 120px !important;
@@ -123,7 +127,7 @@ if (isset($_POST['hapus'])) {
                                 <table id="add-row" class="display table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Nomor</th>
+                                            <th>No</th>
                                             <th>Nama 1</th>
                                             <th>Nama 2</th>
                                             <th>Instansi</th>
@@ -262,9 +266,9 @@ if (isset($_POST['hapus'])) {
                     </div>
                 </div>
             </div>
-            <p class="text-footer text-center p-3">&copy; Sarana dan Prasarana - Universitas Pendidikan Indonesia Kampus UPI di Cibiru</p>
         </div>
     </div>
+      <p class="text-footer text-center p-3">&copy; Center of Excellences Lessons and Learning Studies</p>
 </div>
 
 <!-- Modal Add partnet -->
@@ -341,8 +345,6 @@ while ($row = mysqli_fetch_array($c)) {
     </div>
 </div>
 <?php } ?>
-
-
 
 <!-- agar tidak melebihi 290 karakter -->
 <script>
