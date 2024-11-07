@@ -3,7 +3,7 @@
 $host     = "localhost";
 $username = "root";
 $password = "";
-$database = "cells2";
+$database = "cellsgit";
 
 // Koneksi ke database
 $koneksi = new mysqli($host, $username, $password, $database);

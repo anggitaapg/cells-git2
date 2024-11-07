@@ -235,7 +235,7 @@ require '../koneksi.php';
 														<textarea readonly class="form-control" rows="5" name="deskripsi" style="white-space: pre-line;" required=""><?php echo $k['deskripsi'] ?></textarea>
 													</div>
 													<div class="form-group">
-														<img src="membership/video/<?php echo $k['video'] ?>" width="100%" height="200">
+														<img src="./membership/video/<?php echo $k['video'] ?>" width="100%" height="200">
 													</div>
 												</div>
 												<div class="modal-footer no-bd">
@@ -256,7 +256,7 @@ require '../koneksi.php';
                     $video = $_FILES['video']['name'];
                     $file_tmp = $_FILES['video']['tmp_name'];
                     
-                    if (move_uploaded_file($file_tmp, 'membership/video/' . $video)) {
+                    if (move_uploaded_file($file_tmp, './membership/video/' . $video)) {
 						$query = "INSERT INTO konten (judul, deskripsi, video) VALUES ('$judul', '$deskripsi', '$video')";
 						mysqli_query($conn, $query);
 						echo "<script>alert('Data Berhasil Disimpan');</script>";
@@ -275,7 +275,7 @@ require '../koneksi.php';
                     $file_tmp = $_FILES['video']['tmp_name'];
                     
                     if (!empty($video)) { // Jika ada file video baru diunggah
-						move_uploaded_file($file_tmp, 'membership/video/' . $video);
+						move_uploaded_file($file_tmp, './membership/video/' . $video);
 						$query = "UPDATE konten SET judul='$judul', deskripsi='$deskripsi', video='$video' WHERE id='$id'";
 					} else {
 						$query = "UPDATE konten SET judul='$judul', deskripsi='$deskripsi' WHERE id='$id'";

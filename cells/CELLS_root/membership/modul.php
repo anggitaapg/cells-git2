@@ -2,7 +2,7 @@
 require '../koneksi.php'; // Pastikan path untuk koneksi.php benar
 
 // Ambil data konten berdasarkan kondisi, misalnya id_konten atau urutan tertentu
-$sql = "SELECT * FROM konten ORDER BY id_konten DESC LIMIT 1"; // Menampilkan konten terbaru
+$sql = "SELECT * FROM konten ORDER BY id DESC LIMIT 1"; // Menampilkan konten terbaru
 $result = mysqli_query($koneksi, $sql);
 $commentsQuery = mysqli_query($koneksi, "SELECT * FROM comment ORDER BY username DESC");
 
@@ -10,12 +10,12 @@ $commentsQuery = mysqli_query($koneksi, "SELECT * FROM comment ORDER BY username
 if ($data = mysqli_fetch_assoc($result)) {
     $judul = $data['judul'];
     $deskripsi = $data['deskripsi'];
-    $videoUrl = $data['video_url'];
+    $video = $data['video'];
 } else {
     // Set nilai default jika tidak ada konten yang ditemukan
     $judul = "Tidak ada konten";
     $deskripsi = "Deskripsi tidak tersedia";
-    $videoUrl = ""; // Set ke URL default atau kosong
+    $video = ""; // Set ke URL default atau kosong
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -103,9 +103,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <?php echo $deskripsi; ?>
                 </p>
                 <div class="video-container">
-                    <?php if ($videoUrl): ?>
+                    <?php if ($video): ?>
                     <video class="video" width="640" height="360" controls>
-                    <source src="<?php echo $videoUrl; ?>" type="video/mp4">
+                    <source src="<?php echo $video; ?>" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                     <?php else: ?>
