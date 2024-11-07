@@ -28,7 +28,7 @@
                         <a href="lesson_studies.php" class="dropdown-item">Video Content</a>
                         <!-- <a href="404.html" class="dropdown-item">404 Page</a> -->
                     </div>
-                </div> 
+    </div> 
   </div>
 </div>
 </nav>
