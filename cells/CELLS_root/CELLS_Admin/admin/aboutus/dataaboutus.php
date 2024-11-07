@@ -74,8 +74,8 @@ if (isset($_POST['hapus'])) {
 
 <style>
     th{
-      width: 100px !important;
-      min-width: 100px !important;
+      width: 150px !important;
+      min-width: 150px !important;
     }
     th:first-child {
        width: 35px !important;
