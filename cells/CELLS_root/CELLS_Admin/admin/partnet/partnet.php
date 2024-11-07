@@ -8,13 +8,18 @@ if (isset($_POST['tambahpartnet'])) {
     $instansi = $_POST['instansi'];
     $link = $_POST['link'];
 
+    // Validasi panjang link
+    if(strlen($link) > 290) {
+        echo "<script>alert('Link website tidak boleh lebih dari 290 karakter!');
+        window.location.href='?view=partnet';</script>";
+        exit();
+    }
+
     if (isset($_FILES['logo']) && !empty($_FILES['logo']['name'])) {
         $logo = $_FILES['logo']['name'];
         $target_logo = "partnet/partnet/" . basename($logo);
-
         if (move_uploaded_file($_FILES['logo']['tmp_name'], $target_logo)) {
             $addtotable = mysqli_query($conn, "INSERT INTO partnet(nama_partnet, nama_partnet2, instansi, logo, link) VALUES('$nama_partnet', '$nama_partnet2', '$instansi', '$logo', '$link')");
-
             if ($addtotable) {
                 echo "<script>
                 window.location.href='?view=partnet';
@@ -33,6 +38,13 @@ if (isset($_POST['editpartnet'])) {
     $instansi = $_POST['instansi'];
     $link = $_POST['link'];
 
+    // Validasi panjang link
+    if(strlen($link) > 290) {
+        echo "<script>alert('Link website tidak boleh lebih dari 290 karakter!');
+        window.location.href='?view=partnet';</script>";
+        exit();
+    }
+
     if (!empty($_FILES['logo']['name'])) {
         $logo = $_FILES['logo']['name'];
         $target_logo = "partnet/partnet/" . basename($logo);
@@ -43,7 +55,6 @@ if (isset($_POST['editpartnet'])) {
     }
 
     $result = mysqli_query($conn, $query);
-
     if ($result) {
         echo "<script>
             window.location.href='?view=partnet';
@@ -67,10 +78,15 @@ if (isset($_POST['hapus'])) {
 
 
 <style>
-    .btn-xs {
-        width: 30px;
-        height: 30px;
-    }
+  th{
+    width: 100px !important;
+    min-width: 100px !important;
+  }
+  th:last-child, td:last-child {
+      width: 120px !important;
+      min-width: 120px !important;
+  }
+
 </style>
 
 
@@ -137,10 +153,13 @@ if (isset($_POST['hapus'])) {
                                             <td><img src="partnet/partnet/<?= $logo ?>" width="100" alt="Foto"></td>
                                             <td><?= $link ?></td>
                                             <td>
+                                                <a href="#modalDetailPartnet<?php echo $data['id_partnet'] ?>"  data-toggle="modal" title="Detail" class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a>
                                                 <a href="#modalEditpartnet<?= $id_partnet ?>" data-toggle="modal" title="Edit" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
                                                 <a href="#modalHapuspartnet<?= $id_partnet ?>" data-toggle="modal" title="Hapus" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
                                             </td>
-                                        </tr><!-- Modal Edit partnet -->
+                                        </tr>
+
+                                        <!-- Modal Edit partnet -->
                                         <div class="modal fade" id="modalEditpartnet<?=$id_partnet?>" tabindex="-1" role="dialog" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
@@ -173,14 +192,59 @@ if (isset($_POST['hapus'])) {
 																			                        <input type="file" name="logo" class="form-control">
 																			                    </div>
                                                           <div class="form-group">
-																			                        <label>Link Website</label>
-																			                        <input type="text" name="link" value="<?=$link?>" class="form-control">
-																			                    </div>
+                                                              <label>Link Website</label>
+                                                              <input type="text" name="link" value="<?=$link?>" class="form-control" maxlength="290"
+                                                                     id="linkEdit<?=$id_partnet?>" oninput="validateURL(this)">
+                                                              <small class="text-muted">Maksimal 290 karakter</small>
+                                                              <div id="linkEditError<?=$id_partnet?>" class="text-danger" style="display:none;">URL terlalu panjang (maksimal 290 karakter)</div>
+                                                          </div>
 																			                </div>
                                                         <div class="modal-footer no-bd">
                                                             <button type="submit" name="editpartnet" class="btn btn-primary"><i class="fa fa-save"></i> Save Changes</button>
 
                                                         </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Modal Edit partnet -->
+                                        <div class="modal fade" id="modalDetailPartnet<?=$id_partnet?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header no-bd">
+                                                        <h5 class="modal-title">
+                                                            <span class="fw-mediumbold">Edit</span>
+                                                            <span class="fw-light">partnet</span>
+                                                        </h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+																										<form method="POST" enctype="multipart/form-data" action="">
+																										<div class="modal-body">
+																											<input type="hidden" name="id_partnet" value="<?=$id_partnet?>">
+																			                    <div class="form-group">
+																			                        <label>Nama 1</label>
+																			                        <input  readonly type="text" name="nama_partnet" value="<?=$nama_partnet?>" class="form-control">
+																			                    </div>
+																			                    <div class="form-group">
+																			                        <label>Nama 2</label>
+																			                        <input readonly type="text" name="nama_partnet2" value="<?=$nama_partnet2?>" class="form-control">
+																			                    </div>
+																			                    <div class="form-group">
+																			                        <label>Instansi</label>
+																			                        <input readonly type="text" name="instansi" value="<?=$instansi?>" class="form-control">
+																			                    </div>
+																			                    <div class="form-group">
+																			                        <label>Logo</label>
+																			                        <input readonly type="file" name="logo" class="form-control">
+																			                    </div>
+                                                          <div class="form-group">
+																			                        <label>Link Website</label>
+																			                        <input readonly type="text" name="link" value="<?=$link?>" class="form-control">
+																			                    </div>
+																			                </div>
                                                     </form>
                                                 </div>
                                             </div>
@@ -236,7 +300,10 @@ if (isset($_POST['hapus'])) {
                     </div>
                     <div class="form-group">
                         <label>Link Website</label>
-                        <input type="text" name="link" class="form-control">
+                        <input type="text" name="link" class="form-control" maxlength="290" id="linkAdd"
+                               oninput="validateURL(this)">
+                        <small class="text-muted">Maksimal 290 karakter</small>
+                        <div id="linkAddError" class="text-danger" style="display:none;">URL terlalu panjang (maksimal 290 karakter)</div>
                     </div>
                 </div>
                 <div class="modal-footer no-bd">
@@ -274,3 +341,23 @@ while ($row = mysqli_fetch_array($c)) {
     </div>
 </div>
 <?php } ?>
+
+
+
+<!-- agar tidak melebihi 290 karakter -->
+<script>
+function validateURL(input) {
+    const maxLength = 290;
+    const errorId = input.id + 'Error';
+    const errorElement = document.getElementById(errorId);
+
+    if(input.value.length > maxLength) {
+        input.value = input.value.substring(0, maxLength); // Potong input jika melebihi
+        errorElement.style.display = 'block';
+        return false;
+    } else {
+        errorElement.style.display = 'none';
+        return true;
+    }
+}
+</script>

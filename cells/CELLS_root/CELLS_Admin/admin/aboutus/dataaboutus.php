@@ -73,10 +73,15 @@ if (isset($_POST['hapus'])) {
 ?>
 
 <style>
-    .btn-xs {
-        width: 30px;
-        height: 30px;
+    th{
+      width: 100px !important;
+      min-width: 100px !important;
     }
+    th:last-child, td:last-child {
+    width: 120px !important;
+    min-width: 120px !important;
+    }
+
 </style>
 
 <div class="main-panel">
@@ -162,10 +167,9 @@ if (isset($_POST['hapus'])) {
                                             <td><a href="mailto:<?=$data['email']?>"><?=$data['email']?></a></td>
                                             <td><a href="<?=$data['cv']?>" target="_blank"><?=$data['cv']?></a></td>
                                             <td>
+                                              	<a href="#modalDetailTeam<?php echo $data['id_team'] ?>"  data-toggle="modal" title="Detail" class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a>
                                                 <a href="#modalEditTeam<?=$id_team?>" data-toggle="modal" title="Edit" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
 																								<a href="#modalHapusBarang<?php echo $data['id_team'] ?>" data-toggle="modal" title="Hapus" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-
-
                                             </td>
                                         </tr>
 
@@ -212,7 +216,7 @@ if (isset($_POST['hapus'])) {
 																											</div>
 																											<div class="form-group">
 																												<label>LinkedIn</label>
-																												<input type="text" name="linkedin" value="<?=$linkedin?>" placeholder="Link LinekdIn, Contoh: https://www.linkedin.com/in/********" class="form-control">
+																												<input type="text" name="linkedin" value="<?=$linkedin?>" placeholder="Link LinkedIn, Contoh: https://www.linkedin.com/in/********" class="form-control">
 																											</div>
 																											<div class="form-group">
 																												<label>Curriculum Vitae</label>
@@ -231,6 +235,60 @@ if (isset($_POST['hapus'])) {
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- Modal Read Team -->
+                                        <div class="modal fade" id="modalDetailTeam<?=$id_team?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header no-bd">
+                                                        <h5 class="modal-title">
+                                                            <span class="fw-mediumbold">Detail</span>
+                                                            <span class="fw-light">Team</span>
+                                                        </h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form method="POST" enctype="multipart/form-data" action="">
+                                                    <div class="modal-body">
+                                                      <input type="hidden" name="id_team" value="<?=$id_team?>">
+                                                      <div class="form-group">
+                                                        <label for="kategori" class="form-label">Kategori</label>
+                                                        <input readonly type="text" name="nama" value="<?=$kategori?>" class="form-control">
+                                                      </div>
+                                                      <div class="form-group">
+                                                        <label>Nama Lengkap</label>
+                                                        <input readonly type="text" name="nama" value="<?=$nama?>" class="form-control">
+                                                      </div>
+                                                      <div class="form-group">
+                                                        <label>Jabatan</label>
+                                                        <input readonly type="text" name="jabatan" value="<?=$jabatan?>" class="form-control">
+                                                      </div>
+                                                      <div class="form-group">
+                                                        <label>Periode Jabatan</label>
+                                                        <input readonly type="text" name="periode" value="<?=$periode?>" class="form-control">
+                                                      </div>
+                                                      <div class="form-group">
+                                                        <label>Foto</label>
+                                                        <input readonly type="file" name="Foto" class="form-control" >
+                                                      </div>
+                                                      <div class="form-group">
+                                                        <label>LinkedIn</label>
+                                                        <input readonly type="text" name="linkedin" value="<?=$linkedin?>"  class="form-control">
+                                                      </div>
+                                                      <div class="form-group">
+                                                        <label>Curriculum Vitae</label>
+                                                        <input readonly type="text" name="cv" value="<?=$cv?>" class="form-control">
+                                                      </div>
+                                                      <div class="form-group">
+                                                        <label>Email</label>
+                                                        <input readonly type="text" name="email"  value="<?=$email?>"  class="form-control">
+                                                      </div>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <?php
                                             }
                                         } else {
