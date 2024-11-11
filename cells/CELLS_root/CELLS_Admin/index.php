@@ -69,7 +69,7 @@
                         <label for="username" class="placeholder">Username</label>
                     </div>
                     <div class="form-group form-floating-label">
-                        <input id="password" maxlength="15" name="password" type="password" class="form-control input-border-bottom" required>
+                        <input id="password" maxlength="30" name="password" type="password" class="form-control input-border-bottom" required>
                         <label for="password" class="placeholder">Password</label>
                     </div>
                     
